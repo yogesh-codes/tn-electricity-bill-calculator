@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Electricity Units Determination</title>
+    <!-- Corrected CSS link -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Electricity Bill Calculator</h1>
+
+    <form id="unitsForm">
+        <label for="billAmount">Enter Bill Amount:</label><br>
+        <input type="number" id="billAmount" required><br><br>
+        <button type="submit">Calculate Units Consumed</button>
+    </form>
+
+    <h2>Result:</h2>
+    <div id="unitsConsumed"></div> <!-- Added this element to show the units amt -->
+
+    <script>
+        document.getElementById("unitsForm").onsubmit = async function(event) {
+            event.preventDefault();
+            const billAmount = document.getElementById("billAmount").value;
+
+            const response = await fetch("/determine_unitsConsumed", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ billAmount: billAmount })
+            });
+
+            const result = await response.json();
+            
+            if (result.unitsConsumed) {
+                document.getElementById("unitsConsumed").innerText = `${result.unitsConsumed}`;
+            } else {
+                document.getElementById("unitsConsumed").innerText = `Error: ${result.error}`;
+            }
+        };
+    </script>
+</body>
+</html>
