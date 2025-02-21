@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 
 # API route to calculate bill
-
 @app.route('/calculate_billAmount', methods=['POST'])
 def calculate_billAmount():
     data = request.json
@@ -30,25 +29,7 @@ def calculate_billAmount():
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
 
-@app.route('/page1', methods=['GET','POST'])
-def page1():
-    try:
-        return render_template("page1.html")
-
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
-
-@app.route('/page2', methods=['GET','POST'])
-def page2():
-    try:
-        return render_template("page2.html")
-
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
-
-
 # API to determine units using price:
-
 @app.route('/determine_unitsConsumed', methods=['POST'])
 def determine_unitsConsumed_by_billAmount():
     data = request.json
@@ -67,6 +48,26 @@ def determine_unitsConsumed_by_billAmount():
 
     except ValueError as e:
         return jsonify({'error': str(e)}), 400
+
+
+#-------------------------------------------
+
+@app.route('/page1', methods=['GET','POST'])
+def page1():
+    try:
+        return render_template("page1.html")
+
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+
+@app.route('/page2', methods=['GET','POST'])
+def page2():
+    try:
+        return render_template("page2.html")
+
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400
+
 
 
 
