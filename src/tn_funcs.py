@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np 
 import os
 
-DATA_FOLDER= "data"
-file_under500=os.path.join(DATA_FOLDER,r"under500.csv")
-file_over500= os.path.join(DATA_FOLDER,r"over500.csv")
+DATA_RAW_FOLDER= "data/raw"
+DATA_PROCESSED_FOLDER= "data/processed"
+
+file_under500=os.path.join(DATA_RAW_FOLDER,r"under500.csv")
+file_over500= os.path.join(DATA_RAW_FOLDER,r"over500.csv")
 
 # Load dataset, dataset is ready
 df_under500=pd.read_csv(filepath_or_buffer=file_under500)
@@ -78,8 +80,15 @@ import seaborn as sns
 
 ## Reverse lookup---------------------------------------------------
 
-#CONFIG
-filename=os.path.join(DATA_FOLDER,r"processed/precomputed_ltable_unitsconsumed_price.csv")
+from utils.fileutils import obtain_latest_timestamp_filepath
+
+#MANUAL CONFIG
+FILENAME="pclt_units_price.csv"
+
+
+TIMESTAMPED_FILENAME=obtain_latest_timestamp_filepath(DATA_PROCESSED_FOLDER,FILENAME)
+
+#filename= os.path.join(DATA_PROCESSED_FOLDER,r"pclt_units_price.csv") #pclt= precomputed lookup table
 
 #Auto
 def __load_reverse_ltable(filename):
@@ -91,7 +100,7 @@ def __load_reverse_ltable(filename):
     return data_inverted
 
 
-data_inverted=__load_reverse_ltable(filename)
+data_inverted=__load_reverse_ltable(TIMESTAMPED_FILENAME)
 
 
 def determine_units_using_billAmount(price):
