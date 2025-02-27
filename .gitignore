@@ -90,6 +90,7 @@ data/
 *.json
 *.yaml
 *.yml
+!environment.yml
 *.xml
 *.zip
 *.tar.gz
