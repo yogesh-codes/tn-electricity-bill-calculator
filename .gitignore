@@ -125,3 +125,6 @@ desktop.ini
 tmp-*
 --tmp*
 /donottrack
+
+# for linux environments
+Miniconda3-latest-Linux-x86_64.sh
